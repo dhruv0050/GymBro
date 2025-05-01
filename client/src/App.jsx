@@ -4,6 +4,7 @@ import LandingPage from '../pages/landingPage'
 import SignInPage from '../components/SingIn';
 import SignUpPage from '../components/SignUp';
 import Dashboard from '../pages/dashboard';
+import Workouts from '../pages/workouts';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path : "/dashboard",
     element : <Dashboard/>,
+  },
+  {
+    path : "/workouts",
+    element : <Workouts/>,
   },
 ])
 
