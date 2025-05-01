@@ -1,13 +1,19 @@
 import React from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import LandingPage from '../pages/landingPage'
 
-const App = () => {
+const router = createBrowserRouter([
+  {
+    path : "/",
+    element : <LandingPage/>,
+  }
+])
+
+function App() {
   return (
-    <div>
-      <h1 class="text-3xl font-bold underline">
-        Initial Setup for Gymbro
-      </h1>
-    </div>
-  )
+    <RouterProvider router={router} />
+  );
 }
-
 export default App
+
+
