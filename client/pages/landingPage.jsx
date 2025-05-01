@@ -63,14 +63,14 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
+    <div className="min-h-screen bg-gray-950 text-gray-100">
       {/* Hero Section */}
       <div className="flex flex-col items-center justify-center h-screen relative overflow-hidden" onMouseMove={handleMouseMove}>
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 to-indigo-900/50"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(76,29,149,0.2),rgba(15,23,42,0))]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/50 to-purple-900/50"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.2),rgba(15,23,42,0))]"></div>
         
         <div className="z-10 text-center px-6 max-w-4xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-purple-500">
             Welcome to Gym Bro
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-300">
@@ -78,10 +78,10 @@ const LandingPage = () => {
           </p>
           
           <div className="flex flex-wrap gap-4 justify-center">
-            <button className="px-8 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300 shadow-lg shadow-indigo-600/20">
+            <button className="px-8 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition duration-300 shadow-lg shadow-emerald-600/20">
               Get Started
             </button>
-            <button className="px-8 py-3 bg-transparent border-2 border-indigo-500 text-white rounded-lg hover:bg-indigo-900/30 transition duration-300">
+            <button className="px-8 py-3 bg-transparent border-2 border-emerald-500 text-white rounded-lg hover:bg-emerald-900/30 transition duration-300">
               Learn More
             </button>
           </div>
@@ -92,13 +92,13 @@ const LandingPage = () => {
               <input 
                 type="text" 
                 placeholder="What muscle are you training today?" 
-                className="w-full px-6 py-4 bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-2xl text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
+                className="w-full px-6 py-4 bg-gray-900/70 backdrop-blur-sm border border-gray-800 rounded-2xl text-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all duration-300"
               />
               <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-2xl">
                 {particles.map(particle => (
                   <div 
                     key={particle.id}
-                    className="absolute bg-indigo-400 rounded-full animate-pulse"
+                    className="absolute bg-emerald-400 rounded-full animate-pulse"
                     style={{
                       left: `${particle.x}%`,
                       top: `${particle.y}%`,
@@ -111,7 +111,7 @@ const LandingPage = () => {
                 ))}
               </div>
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
@@ -121,10 +121,10 @@ const LandingPage = () => {
       </div>
       
       {/* About Section with 4 Cards */}
-      <div className="py-24 px-6 bg-gray-900">
+      <div className="py-24 px-6 bg-gray-950">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">
+            <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-purple-500">
               Why Choose Gym Bro?
             </h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
@@ -136,9 +136,9 @@ const LandingPage = () => {
             {features.map((feature, index) => (
               <div 
                 key={index} 
-                className="bg-gray-800 rounded-xl p-6 shadow-lg transition-all duration-300 hover:shadow-indigo-500/20 hover:shadow-xl border border-gray-700 hover:border-indigo-500/50 flex flex-col items-center text-center"
+                className="bg-gray-900 rounded-xl p-6 shadow-lg transition-all duration-300 hover:shadow-emerald-500/20 hover:shadow-xl border border-gray-800 hover:border-emerald-500/50 flex flex-col items-center text-center"
               >
-                <div className="text-indigo-400 w-12 h-12">
+                <div className="text-emerald-400 w-12 h-12">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold mt-2 mb-3">{feature.title}</h3>
