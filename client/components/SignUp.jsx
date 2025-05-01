@@ -13,6 +13,7 @@ export default function SignUpPage() {
         <div className="relative z-10">
           <SignUp 
           signInUrl="/signin"
+          forceRedirectUrl="/dashboard"
             appearance={{
               elements: {
                 formButtonPrimary: 'bg-indigo-600 hover:bg-indigo-700',
