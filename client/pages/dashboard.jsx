@@ -1,76 +1,82 @@
 import React, { useState, useEffect } from 'react';
 import { Dumbbell, Menu, X, ChevronRight, Heart, Activity, ArrowRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
-const Dashboard = () => {
-  const user = {
-    name: 'John',
-    streak: 7,
-    lastWorkout: 'Chest & Triceps',
-    progress: 68
-  };
+import back from '../src/assets/back.png';
+import leg from '../src/assets/leg.png';
+import arms from '../src/assets/arms.png';
+import chest from '../src/assets/chest.png';
+import abs from '../src/assets/abs.png';
+import full from '../src/assets/full.png';
+import { useUser } from '@clerk/clerk-react';
 
-  // Muscle groups data with icons and descriptions
+
+
+const Dashboard = () => {
+  const { isLoaded, user } = useUser();
+  
+  if (!isLoaded || !user) {
+    return null;
+  }
+  // Muscle groups data with descriptions
   const muscleGroups = [
     { 
       id: 'chest', 
-      name: 'Chest', 
-      icon: '💪', 
+      name: 'Chest',
+      Image: chest,  
       description: 'Build a stronger, more defined chest',
-      color: 'from-emerald-500 to-emerald-700' 
+      color: 'from-emerald-600 to-emerald-800' 
     },
     { 
       id: 'back', 
-      name: 'Back', 
-      icon: '🔙', 
+      name: 'Back',
+      Image: back, 
       description: 'Strengthen your back muscles',
       color: 'from-emerald-600 to-emerald-800' 
     },
     { 
       id: 'shoulders', 
       name: 'Shoulders', 
-      icon: '🏋️', 
       description: 'Develop broader shoulders',
       color: 'from-emerald-500 to-emerald-700' 
     },
     { 
       id: 'biceps', 
-      name: 'Biceps', 
-      icon: '💪', 
+      name: 'Biceps',
+      Image: arms,  
       description: 'Sculpt your biceps',
-      color: 'from-purple-500 to-purple-700' 
+      color: 'from-purple-600 to-purple-800' 
     },
     { 
       id: 'triceps', 
-      name: 'Triceps', 
-      icon: '💪', 
+      name: 'Triceps',
+      Image: arms,  
       description: 'Define your triceps',
       color: 'from-purple-600 to-purple-800' 
     },
     { 
       id: 'legs', 
-      name: 'Legs', 
-      icon: '🦵', 
+      name: 'Legs',
+      Image: leg,  
       description: 'Don\'t skip leg day!',
       color: 'from-purple-500 to-purple-700' 
     },
     { 
       id: 'abs', 
       name: 'Abs', 
-      icon: '🧠', 
+      Image: abs,
       description: 'Core strength is key',
       color: 'from-emerald-500 to-purple-700' 
     },
     { 
       id: 'cardio', 
       name: 'Cardio', 
-      icon: '🏃', 
       description: 'Improve your cardiovascular health',
       color: 'from-emerald-600 to-purple-800' 
     },
     { 
       id: 'fullbody', 
       name: 'Full Body', 
-      icon: '⚡', 
+      Image: full,
       description: 'Complete workout for all muscle groups',
       color: 'from-emerald-500 to-purple-700' 
     }
@@ -93,7 +99,7 @@ const Dashboard = () => {
     // Navigate to the workouts page
     window.location.href = '/workouts';
   };
-
+ 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       <Navbar/>
@@ -101,7 +107,7 @@ const Dashboard = () => {
       <div className="pt-16 pb-24 px-4 sm:px-6 max-w-7xl mx-auto">
         {/* Welcome Section */}
         <div className="mt-8 mb-10">
-          <h1 className="text-3xl font-bold text-white mb-2">Welcome back, <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-purple-500">{user.name}</span></h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Welcome back, <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-purple-500">{user.firstName}</span></h1>
           <p className="text-gray-400">Let's crush your fitness goals today!</p>
         </div>
         
@@ -114,7 +120,7 @@ const Dashboard = () => {
               </div>
               <div>
                 <p className="text-gray-400 text-sm">Current Streak</p>
-                <p className="text-2xl font-bold">{user.streak} days</p>
+                {/* <p className="text-2xl font-bold">{user.streak} days</p> */}
               </div>
             </div>
           </div>
@@ -126,7 +132,7 @@ const Dashboard = () => {
               </div>
               <div>
                 <p className="text-gray-400 text-sm">Last Workout</p>
-                <p className="text-xl font-bold">{user.lastWorkout}</p>
+                {/* <p className="text-xl font-bold">{user.lastWorkout}</p> */}
               </div>
             </div>
           </div>
@@ -139,12 +145,12 @@ const Dashboard = () => {
               <div className="flex-grow">
                 <div className="flex justify-between">
                   <p className="text-gray-400 text-sm">Monthly Goal</p>
-                  <p className="text-gray-400 text-sm">{user.progress}%</p>
+                  {/* <p className="text-gray-400 text-sm">{user.progress}%</p> */}
                 </div>
                 <div className="h-2 bg-gray-800 rounded-full mt-2">
                   <div 
                     className="h-2 bg-gradient-to-r from-emerald-500 to-purple-500 rounded-full" 
-                    style={{ width: `${user.progress}%` }}
+                    // style={{ width: `${user.progress}%` }}
                   ></div>
                 </div>
               </div>
@@ -157,25 +163,24 @@ const Dashboard = () => {
           <h2 className="text-2xl font-bold mb-6">What are you training today?</h2>
           <p className="text-gray-400 mb-6">Select one or more muscle groups you want to focus on</p>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {muscleGroups.map((muscle) => (
               <div 
                 key={muscle.id}
                 onClick={() => toggleMuscle(muscle.id)}
-                className={`relative overflow-hidden rounded-xl cursor-pointer transition-all duration-300 ${
+                className={`bg-gray-900 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 ${
                   selectedMuscles.includes(muscle.id) 
                     ? 'ring-2 ring-emerald-500 shadow-lg shadow-emerald-500/20' 
-                    : 'border border-gray-800'
+                    : 'border border-gray-800 hover:border-gray-700'
                 }`}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${muscle.color} opacity-${selectedMuscles.includes(muscle.id) ? '20' : '10'}`}></div>
-                <div className="relative p-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <span className="text-3xl">{muscle.icon}</span>
+                <div className="p-5">
+                  <div className="flex justify-between items-center mb-3">
+                    <h3 className="text-xl font-semibold text-white">{muscle.name}</h3>
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                       selectedMuscles.includes(muscle.id) 
                         ? 'border-emerald-500 bg-emerald-500' 
-                        : 'border-gray-500'
+                        : 'border-gray-600'
                     }`}>
                       {selectedMuscles.includes(muscle.id) && (
                         <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -184,9 +189,16 @@ const Dashboard = () => {
                       )}
                     </div>
                   </div>
-                  <h3 className="text-xl font-semibold mb-1">{muscle.name}</h3>
-                  <p className="text-gray-400 text-sm">{muscle.description}</p>
+                  <p className="text-gray-400 text-sm mb-4">{muscle.description}</p>
+                  <div className="rounded-lg overflow-hidden h-40 bg-gray-800">
+                    <img 
+                      src={muscle.Image}
+                      alt={`${muscle.name} exercise`}
+                      className="w-full h-full object-cover opacity-70"
+                    />
+                  </div>
                 </div>
+                <div className={`h-1 w-full bg-gradient-to-r ${muscle.color}`}></div>
               </div>
             ))}
           </div>
