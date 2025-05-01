@@ -78,9 +78,12 @@ const LandingPage = () => {
           </p>
           
           <div className="flex flex-wrap gap-4 justify-center">
-            <button className="px-8 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition duration-300 shadow-lg shadow-emerald-600/20">
+            <a 
+            className="px-8 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition duration-300 shadow-lg shadow-emerald-600/20"
+            href='/signup'
+            >
               Get Started
-            </button>
+            </a>
             <button className="px-8 py-3 bg-transparent border-2 border-emerald-500 text-white rounded-lg hover:bg-emerald-900/30 transition duration-300">
               Learn More
             </button>
