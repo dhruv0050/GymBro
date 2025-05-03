@@ -8,6 +8,7 @@ const LoggedWorkouts = () => {
   const userId = user?.id;
   const [workouts, setWorkouts] = useState([]);
   const [editingWorkout, setEditingWorkout] = useState(null);
+  const [newExerciseName, setNewExerciseName] = useState("");
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -70,6 +71,27 @@ const LoggedWorkouts = () => {
   const deleteSet = (exIndex, setIndex) => {
     const updated = { ...editingWorkout };
     updated.exercises[exIndex].repsAndWeights = updated.exercises[exIndex].repsAndWeights.filter((_, i) => i !== setIndex);
+    setEditingWorkout(updated);
+  };
+  
+  // Add a new exercise to the workout
+  const addExercise = () => {
+    if (!newExerciseName.trim()) return;
+    
+    const updated = { ...editingWorkout };
+    updated.exercises.push({
+      name: newExerciseName,
+      repsAndWeights: [{ reps: 0, weight: 0 }]
+    });
+    
+    setEditingWorkout(updated);
+    setNewExerciseName("");
+  };
+  
+  // Add a new set to an exercise
+  const addSet = (exIndex) => {
+    const updated = { ...editingWorkout };
+    updated.exercises[exIndex].repsAndWeights.push({ reps: 0, weight: 0 });
     setEditingWorkout(updated);
   };
 
@@ -167,8 +189,47 @@ const LoggedWorkouts = () => {
                             </div>
                           </div>
                         ))}
+                        
+                        {/* Add Set Button */}
+                        <button
+                          onClick={() => addSet(i)}
+                          className="w-full py-2 mt-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white border border-gray-600 transition-all duration-300 flex items-center justify-center"
+                        >
+                          <svg className="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          Add Set
+                        </button>
                       </div>
                     ))}
+                    
+                    {/* Add new exercise form */}
+                    <div className="mt-6 mb-4 p-4 bg-gray-850 rounded-lg border border-gray-700">
+                      <h3 className="text-lg font-medium text-white mb-3">Add New Exercise</h3>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={newExerciseName}
+                          onChange={(e) => setNewExerciseName(e.target.value)}
+                          placeholder="Exercise name"
+                          className="flex-grow p-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        />
+                        <button
+                          onClick={addExercise}
+                          disabled={!newExerciseName.trim()}
+                          className={`px-4 py-2 rounded-lg flex items-center justify-center ${
+                            newExerciseName.trim() 
+                              ? "bg-emerald-600 hover:bg-emerald-700 text-white" 
+                              : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                          } transition-all duration-300`}
+                        >
+                          <svg className="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          Add
+                        </button>
+                      </div>
+                    </div>
                     
                     <div className="flex gap-3 mt-4">
                       <button 
