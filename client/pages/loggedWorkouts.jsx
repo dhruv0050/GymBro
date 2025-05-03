@@ -37,7 +37,15 @@ const LoggedWorkouts = () => {
 
   const handleEditChange = (exIndex, setIndex, field, value) => {
     const updated = { ...editingWorkout };
-    updated.exercises[exIndex].repsAndWeights[setIndex][field] = value;
+    
+    // Handle exercise name edit
+    if (field === 'name') {
+      updated.exercises[exIndex].name = value;
+    } else {
+      // Handle reps and weights edit
+      updated.exercises[exIndex].repsAndWeights[setIndex][field] = value;
+    }
+    
     setEditingWorkout(updated);
   };
 
@@ -49,6 +57,20 @@ const LoggedWorkouts = () => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  // New function to delete an exercise
+  const deleteExercise = (exIndex) => {
+    const updated = { ...editingWorkout };
+    updated.exercises = updated.exercises.filter((_, i) => i !== exIndex);
+    setEditingWorkout(updated);
+  };
+
+  // New function to delete a set
+  const deleteSet = (exIndex, setIndex) => {
+    const updated = { ...editingWorkout };
+    updated.exercises[exIndex].repsAndWeights = updated.exercises[exIndex].repsAndWeights.filter((_, i) => i !== setIndex);
+    setEditingWorkout(updated);
   };
 
   return (
@@ -90,11 +112,39 @@ const LoggedWorkouts = () => {
                   <>
                     {editingWorkout.exercises.map((ex, i) => (
                       <div key={i} className="mb-6 bg-gray-800 p-4 rounded-lg">
-                        <h3 className="font-semibold text-lg mb-3 text-white">{ex.name}</h3>
+                        <div className="flex items-center justify-between mb-3">
+                          <input
+                            type="text"
+                            value={ex.name}
+                            onChange={(e) => handleEditChange(i, null, 'name', e.target.value)}
+                            className="font-semibold text-lg text-white bg-gray-800 border-b border-gray-600 focus:outline-none focus:border-emerald-500 px-1 py-0.5 w-3/4"
+                          />
+                          <button 
+                            onClick={() => deleteExercise(i)}
+                            className="p-1.5 rounded-lg bg-red-900/30 hover:bg-red-900/50 text-red-300 hover:text-red-200 transition-all duration-300"
+                            title="Delete exercise"
+                          >
+                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              <path d="M10 11v6M14 11v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </button>
+                        </div>
                         
                         {ex.repsAndWeights.map((set, j) => (
                           <div key={j} className="mb-3 p-3 bg-gray-850 rounded-lg">
-                            <p className="text-sm text-gray-400 mb-2">Set {j + 1}</p>
+                            <div className="flex justify-between items-center mb-2">
+                              <p className="text-sm text-gray-400">Set {j + 1}</p>
+                              <button 
+                                onClick={() => deleteSet(i, j)}
+                                className="p-1 rounded-md bg-red-900/20 hover:bg-red-900/40 text-red-300 hover:text-red-200 transition-all duration-300"
+                                title="Delete set"
+                              >
+                                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                              </button>
+                            </div>
                             <div className="flex gap-3">
                               <div className="w-1/2">
                                 <label className="block text-sm text-gray-400 mb-1">Reps</label>
