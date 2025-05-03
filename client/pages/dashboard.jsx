@@ -3,10 +3,13 @@ import { Dumbbell, Menu, X, ChevronRight, Heart, Activity, ArrowRight } from 'lu
 import Navbar from '../components/Navbar';
 import back from '../src/assets/back.png';
 import leg from '../src/assets/leg.png';
-import arms from '../src/assets/arms.png';
+import tricep from '../src/assets/tricep.png';
 import chest from '../src/assets/chest.png';
 import abs from '../src/assets/abs.png';
 import full from '../src/assets/full.png';
+import shoulder from '../src/assets/shoulder.png';
+import bicep from '../src/assets/bicep.png';
+import cardio from '../src/assets/cardio.png';
 import { useUser } from '@clerk/clerk-react';
 import { useNavigate } from "react-router-dom";
 
@@ -35,20 +38,21 @@ const Dashboard = () => {
     { 
       id: 'shoulders', 
       name: 'Shoulders', 
+      Image: shoulder,
       description: 'Develop broader shoulders',
       color: 'from-emerald-500 to-emerald-700' 
     },
     { 
       id: 'biceps', 
       name: 'Biceps',
-      Image: arms,  
+      Image: bicep,  
       description: 'Sculpt your biceps',
       color: 'from-purple-600 to-purple-800' 
     },
     { 
       id: 'triceps', 
       name: 'Triceps',
-      Image: arms,  
+      Image: tricep,  
       description: 'Define your triceps',
       color: 'from-purple-600 to-purple-800' 
     },
@@ -69,6 +73,7 @@ const Dashboard = () => {
     { 
       id: 'cardio', 
       name: 'Cardio', 
+      Image: cardio,
       description: 'Improve your cardiovascular health',
       color: 'from-emerald-600 to-purple-800' 
     },
