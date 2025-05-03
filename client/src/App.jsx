@@ -5,6 +5,7 @@ import SignInPage from '../components/SingIn';
 import SignUpPage from '../components/SignUp';
 import Dashboard from '../pages/dashboard';
 import Workouts from '../pages/workouts';
+import LoggedWorkouts from '../pages/loggedWorkouts';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path : "/workouts",
     element : <Workouts/>,
+  },
+  {
+    path : "/your-workouts",
+    element : <LoggedWorkouts/>,
   },
 ])
 

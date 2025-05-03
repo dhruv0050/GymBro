@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useUser } from "@clerk/clerk-react";
+import Navbar from "../components/Navbar";
 
 const Workouts = () => {
   const location = useLocation();
@@ -65,6 +66,8 @@ const Workouts = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen bg-gray-950 text-gray-100">
       <div className="pt-16 pb-24 px-4 sm:px-6 max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold text-white mb-4">Log Workout</h1>
@@ -129,6 +132,7 @@ const Workouts = () => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 

@@ -11,6 +11,8 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', href: '/dashboard' },
+    { name: 'Workouts', href: '/workouts' },
+    { name: 'Your Workouts', href: '/your-workouts' },
   ];
 
   return (
@@ -40,9 +42,9 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="ml-5 flex items-center space-x-2">
-                <span className="text-gray-300 hover:text-emerald-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                {/* <span className="text-gray-300 hover:text-emerald-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                   My Account
-                </span>
+                </span> */}
               </div>
               <SignedIn>
                 <UserButton />
