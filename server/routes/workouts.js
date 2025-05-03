@@ -15,4 +15,6 @@ router.put('/:id', workoutController.updateWorkout);
 // Delete
 router.delete('/:id', workoutController.deleteWorkout);
 
+router.get('/user/:userId', workoutController.getWorkoutsByUser);
+
 module.exports = router;

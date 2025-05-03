@@ -36,3 +36,29 @@ exports.deleteWorkout = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.getWorkoutsByUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const workouts = await Workout.find({ userId }).sort({ date: -1 });
+
+    const formatted = workouts.map(workout => {
+      const dateObj = new Date(workout.date);
+      const day = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
+      const formattedDate = dateObj.toLocaleDateString();
+
+      return {
+        _id: workout._id,
+        muscleGroup: workout.muscleGroup,
+        exercises: workout.exercises,
+        date: formattedDate,
+        day,
+      };
+    });
+
+    res.json(formatted);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
