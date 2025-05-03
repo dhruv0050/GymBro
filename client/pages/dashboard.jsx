@@ -8,8 +8,7 @@ import chest from '../src/assets/chest.png';
 import abs from '../src/assets/abs.png';
 import full from '../src/assets/full.png';
 import { useUser } from '@clerk/clerk-react';
-
-
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const { isLoaded, user } = useUser();
@@ -94,10 +93,10 @@ const Dashboard = () => {
     }
   };
 
-  // Function to handle "Log Workout" button click
-  const handleLogWorkout = () => {
-    // Navigate to the workouts page
-    window.location.href = '/workouts';
+  const navigate = useNavigate();
+
+  const handleLogWorkoutClick = () => {
+    navigate("/workouts", { state: { selectedMuscles } });
   };
  
   return (
@@ -207,7 +206,7 @@ const Dashboard = () => {
         {/* Log Workout Button */}
         <div className="flex justify-center mt-8">
           <button 
-            onClick={handleLogWorkout}
+            onClick={handleLogWorkoutClick}
             disabled={selectedMuscles.length === 0}
             className={`flex items-center px-6 py-3 rounded-lg text-lg font-medium transition-all duration-300 ${
               selectedMuscles.length > 0 
