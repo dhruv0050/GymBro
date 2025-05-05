@@ -6,6 +6,7 @@ import SignUpPage from '../components/SignUp';
 import Dashboard from '../pages/dashboard';
 import Workouts from '../pages/workouts';
 import LoggedWorkouts from '../pages/loggedWorkouts';
+import About from '../pages/About';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path : "/your-workouts",
     element : <LoggedWorkouts/>,
+  },
+  {
+    path : "/about",
+    element : <About/>,
   },
 ])
 
