@@ -8,6 +8,7 @@ const Workouts = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const selectedMuscles = location.state?.selectedMuscles || [];
+  const [duration, setDuration] = useState(60); // default 60 mins
 
   const [exercises, setExercises] = useState([
     { name: "", repsAndWeights: [{ reps: "", weight: "" }] }
@@ -52,8 +53,10 @@ const Workouts = () => {
     const workoutData = {
       userId,
       muscleGroup: selectedMuscles.join(", "),
-      exercises: filteredExercises
+      exercises: filteredExercises,
+      duration
     };
+    
 
     try {
       await axios.post("http://localhost:5000/api/workouts", workoutData);
@@ -123,7 +126,17 @@ const Workouts = () => {
           </svg>
           Add Exercise
         </button>
-  
+        <div className="mb-6">
+  <label className="block text-sm text-gray-400 mb-1">Duration (minutes)</label>
+  <input
+    type="number"
+    value={duration}
+    onChange={(e) => setDuration(parseInt(e.target.value))}
+    className="w-full sm:w-40 p-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+    min={1}
+  />
+</div>
+
         <button 
           onClick={logWorkout} 
           className="px-6 py-3 rounded-lg font-semibold w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-purple-600 hover:from-emerald-700 hover:to-purple-700 text-white shadow-lg shadow-emerald-500/20 transition-all duration-300"
