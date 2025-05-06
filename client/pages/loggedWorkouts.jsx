@@ -9,7 +9,24 @@ const LoggedWorkouts = () => {
   const [workouts, setWorkouts] = useState([]);
   const [editingWorkout, setEditingWorkout] = useState(null);
   const [newExerciseName, setNewExerciseName] = useState("");
+  const [profile, setProfile] = useState(null);
+  const [burntCalories, setBurntCalories] = useState({}); // { workoutId: calories }
+  const [loadingCalories, setLoadingCalories] = useState({});
 
+  // Fetch user profile
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/profile/${userId}`);
+        setProfile(res.data);
+      } catch (err) {
+        setProfile(null);
+      }
+    };
+    if (userId) fetchProfile();
+  }, [userId]);
+
+  // Fetch workouts
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {
@@ -19,9 +36,40 @@ const LoggedWorkouts = () => {
         console.error(err);
       }
     };
-
     if (userId) fetchWorkouts();
   }, [userId]);
+
+  // Fetch burnt calories for each workout
+  useEffect(() => {
+    const fetchCalories = async () => {
+      if (!profile || workouts.length === 0) return;
+      for (const workout of workouts) {
+        // Avoid duplicate calls
+        if (burntCalories[workout._id] || loadingCalories[workout._id]) continue;
+        setLoadingCalories((prev) => ({ ...prev, [workout._id]: true }));
+        try {
+          // Prepare workoutDetails for Gemini API
+          const workoutDetails = workout.exercises.map((ex) => ({
+            name: ex.name,
+            sets: ex.repsAndWeights.length,
+            reps: ex.repsAndWeights.map((rw) => rw.reps).join(", "),
+            weight: ex.repsAndWeights.map((rw) => rw.weight).join(", "),
+          }));
+          const res = await axios.post("http://localhost:5000/api/gemini/estimate", {
+            userProfile: profile,
+            workoutDetails,
+          });
+          setBurntCalories((prev) => ({ ...prev, [workout._id]: res.data.calories }));
+        } catch (err) {
+          setBurntCalories((prev) => ({ ...prev, [workout._id]: "-" }));
+        } finally {
+          setLoadingCalories((prev) => ({ ...prev, [workout._id]: false }));
+        }
+      }
+    };
+    fetchCalories();
+    // eslint-disable-next-line
+  }, [profile, workouts]);
 
   const deleteWorkout = async (id) => {
     try {
@@ -112,8 +160,11 @@ const LoggedWorkouts = () => {
               <div className="p-5 border-b border-gray-800 bg-gray-850">
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
                   <div>
-                    <p className="text-lg font-semibold text-white mb-1">
+                    <p className="text-lg font-semibold text-white mb-1 flex items-center gap-2">
                       {new Date(workout.date).toLocaleDateString("en-US", { weekday: "long" })}
+                      <span className="text-xs font-normal text-emerald-400 ml-2">
+                        {loadingCalories[workout._id] ? "Calculating..." : burntCalories[workout._id] ? `${burntCalories[workout._id]}` : ""}
+                      </span>
                     </p>
                     <p className="text-gray-400 text-sm">
                       {new Date(workout.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}

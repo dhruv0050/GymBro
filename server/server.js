@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const workoutRoutes = require('./routes/workouts');
 const profileRoutes = require('./routes/Profile');
+const geminiRoutes = require('./routes/Gemini');
 
 const app = express();
 const PORT = 5000;
@@ -17,7 +18,9 @@ mongoose.connect(process.env.MONGODB_URI, {
     useUnifiedTopology: true,
   }).then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
-
+  
+app.use('/api/gemini', geminiRoutes);
+  
 app.use('/api/workouts', workoutRoutes);
 app.use('/api/profile', profileRoutes);
 

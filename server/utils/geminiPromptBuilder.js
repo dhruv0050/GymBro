@@ -1,6 +1,6 @@
 function buildGeminiPrompt(userProfile, workoutDetails) {
     return `
-  You are a certified fitness trainer and calorie estimation expert. Based on the user's physical profile and the provided workout details, calculate an estimated number of calories burned during the session using MET values or similar scientific estimations.
+  You are a certified fitness trainer and calorie estimation expert. Based on the user's physical profile and the provided workout details, calculate the **total** estimated number of calories burned for the **entire workout session** using MET values or similar scientific estimations. Use all provided details for each exercise, and if duration is not specified, assume a typical duration for each set (e.g., 1.5 minutes per set).
   
   User Profile:
   - Age: ${userProfile.age}
@@ -17,7 +17,7 @@ function buildGeminiPrompt(userProfile, workoutDetails) {
      Duration: ${ex.duration || "N/A"} minutes
   `).join('')}
   
-  Return only a single number — the estimated calories burned. No units, no explanation, no text, no formatting.
+  Return only a single number — the **total** estimated calories burned for the entire workout session. With units, no explanation, no text, no formatting.
     `;
   }
 module.exports = { buildGeminiPrompt };
