@@ -2,6 +2,7 @@ import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar"; // Import Navbar component
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
   const { user } = useUser();
@@ -14,6 +15,8 @@ const About = () => {
     height: "",
     sex: "male",
   });
+
+  const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
   const [statusMsg, setStatusMsg] = useState({ text: "", type: "" }); // For success/error messages
@@ -55,12 +58,16 @@ const About = () => {
       });
       setStatusMsg({ text: "Profile saved successfully!", type: "success" });
       setIsEditing(false);
+  
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
     } catch (err) {
       setStatusMsg({ text: "Failed to save profile.", type: "error" });
       console.error(err);
     }
   };
-
+  
   return (
     <>
       <Navbar />
