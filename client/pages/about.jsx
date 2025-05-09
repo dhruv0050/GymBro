@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/clerk-react";
-import { useEffect, useState } from "react";
+import { act, useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar"; // Import Navbar component
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,9 @@ const About = () => {
     age: "",
     weight: "",
     height: "",
-    sex: "male",
+    sex: "",
+    activityLevel: "",
+    goal: "",
   });
 
   const navigate = useNavigate();
@@ -154,6 +156,35 @@ const About = () => {
                 </select>
               </div>
 
+              <div className="bg-gray-900 p-5 rounded-xl border border-gray-800 shadow-lg">
+                <label className="block text-sm font-medium text-gray-400 mb-2">Your Daily Activity Levels</label>
+                <select
+                  name="activityLevel"
+                  value={formData.activityLevel}
+                  onChange={handleChange}
+                  className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                >
+                  <option value="Highly Active">Highly Active</option>
+                  <option value="Moderately Active">Moderately Active</option>
+                  <option value="Less Active">Less Active</option>
+                </select>
+              </div>
+
+              <div className="bg-gray-900 p-5 rounded-xl border border-gray-800 shadow-lg">
+                <label className="block text-sm font-medium text-gray-400 mb-2">Your Fitness Goal</label>
+                <select
+                  name="goal"
+                  value={formData.goal}
+                  onChange={handleChange}
+                  className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                >
+                  <option value="Gain Muscle">Gain Muscle</option>
+                  <option value="Gain Weight">Gain Weight</option>
+                  <option value="Loose Weight">Loose Weight</option>
+                  <option value="Maintain Weight">Maintain Weight</option>
+                </select>
+              </div>
+
               <div className="flex gap-4 mt-6">
                 <button 
                   type="button" 
@@ -194,6 +225,18 @@ const About = () => {
                 <div className="flex justify-between items-center">
                   <p className="text-gray-400">Sex</p>
                   <p className="font-semibold text-white capitalize">{formData.sex || "Not set"}</p>
+                </div>
+              </div>
+              <div className="bg-gray-900 p-5 rounded-xl border border-gray-800 shadow-lg">
+                <div className="flex justify-between items-center">
+                  <p className="text-gray-400">Activity Level</p>
+                  <p className="font-semibold text-white capitalize">{formData.activityLevel || "Not set"}</p>
+                </div>
+              </div>
+              <div className="bg-gray-900 p-5 rounded-xl border border-gray-800 shadow-lg">
+                <div className="flex justify-between items-center">
+                  <p className="text-gray-400">Fitness Goal</p>
+                  <p className="font-semibold text-white capitalize">{formData.goal || "Not set"}</p>
                 </div>
               </div>
 

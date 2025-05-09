@@ -6,6 +6,8 @@ const userProfileSchema = new mongoose.Schema({
   weight: Number,
   height: Number,
   sex: String,
+  activityLevel: String,
+  goal: String,
 });
 
 module.exports = mongoose.model('UserProfile', userProfileSchema);
