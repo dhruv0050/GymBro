@@ -16,6 +16,7 @@ const About = () => {
     sex: "",
     activityLevel: "",
     goal: "",
+    diet: "",
   });
 
   const navigate = useNavigate();
@@ -185,6 +186,20 @@ const About = () => {
                 </select>
               </div>
 
+              <div className="bg-gray-900 p-5 rounded-xl border border-gray-800 shadow-lg">
+                <label className="block text-sm font-medium text-gray-400 mb-2">Your Fitness Goal</label>
+                <select
+                  name="diet"
+                  value={formData.diet}
+                  onChange={handleChange}
+                  className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                >
+                  <option value="Vegetarian">Vegetarian</option>
+                  <option value="Non Vegetarian">Non Vegetarian</option>
+                  <option value="Vegan">Vegan</option>
+                </select>
+              </div>
+
               <div className="flex gap-4 mt-6">
                 <button 
                   type="button" 
@@ -237,6 +252,12 @@ const About = () => {
                 <div className="flex justify-between items-center">
                   <p className="text-gray-400">Fitness Goal</p>
                   <p className="font-semibold text-white capitalize">{formData.goal || "Not set"}</p>
+                </div>
+              </div>
+              <div className="bg-gray-900 p-5 rounded-xl border border-gray-800 shadow-lg">
+                <div className="flex justify-between items-center">
+                  <p className="text-gray-400">Diet Preferences</p>
+                  <p className="font-semibold text-white capitalize">{formData.diet || "Not set"}</p>
                 </div>
               </div>
 

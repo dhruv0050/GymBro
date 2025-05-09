@@ -33,9 +33,10 @@ User Profile:
 - Height: ${userProfile.height} cm
 - Activity Level: ${userProfile.activityLevel} (e.g., high, medium, low)
 - Fitness Goal: ${userProfile.goal} (e.g., gain muscle, gain weight, lose weight, maintain weight)
+- Diet: ${userProfile.diet} (e.g., vegetarian, non-vegetarian, vegan)
 
 Return your response in the following format:
-Calories: <number> kcal  
+Calories: <number> cal  
 Carbohydrates: <number> g  
 Protein: <number> g  
 Fats: <number> g

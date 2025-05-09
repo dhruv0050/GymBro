@@ -14,6 +14,7 @@ exports.saveProfile = async (req, res) => {
       existing.sex = sex;
       existing.activityLevel = activityLevel;
       existing.goal = goal;
+      existing.diet = diet;
       await existing.save();
       return res.status(200).json(existing);
     }
