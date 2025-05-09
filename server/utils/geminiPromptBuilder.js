@@ -22,3 +22,24 @@ function buildGeminiPrompt(userProfile, workoutDetails) {
   }
 module.exports = { buildGeminiPrompt };
   
+function buildGeminiPromptforMacros(userProfile) {
+  return `
+You are a certified fitness trainer and nutrition expert. Based on the user's physical profile, estimate the **total daily calorie requirement** along with the required amounts of **carbohydrates, fats, and protein** to help the user reach their fitness goal.
+
+User Profile:
+- Age: ${userProfile.age}
+- Sex: ${userProfile.sex}
+- Weight: ${userProfile.weight} kg
+- Height: ${userProfile.height} cm
+- Activity Level: ${userProfile.activityLevel} (e.g., high, medium, low)
+- Fitness Goal: ${userProfile.goal} (e.g., gain muscle, gain weight, lose weight, maintain weight)
+
+Return your response in the following format:
+Calories: <number> kcal  
+Carbohydrates: <number> g  
+Protein: <number> g  
+Fats: <number> g
+`;
+}
+module.exports = { buildGeminiPromptforMacros };
+  
