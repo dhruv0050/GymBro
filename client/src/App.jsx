@@ -7,6 +7,7 @@ import Dashboard from '../pages/dashboard';
 import Workouts from '../pages/workouts';
 import LoggedWorkouts from '../pages/loggedWorkouts';
 import About from '../pages/About';
+import Macros from '../pages/macros';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path : "/about",
     element : <About/>,
+  },
+  {
+    path : "/macros",
+    element : <Macros/>,
   },
 ])
 
