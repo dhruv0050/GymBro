@@ -43,4 +43,3 @@ Fats: <number> g
 `;
 }
 module.exports = { buildGeminiPromptforMacros };
-  
