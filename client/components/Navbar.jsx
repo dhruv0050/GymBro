@@ -13,6 +13,7 @@ const Navbar = () => {
     { name: 'Home', href: '/dashboard' },
     { name: 'About You', href: '/about' },
     { name: 'Your Workouts', href: '/your-workouts' },
+    { name: 'Macros', href: '/macros' },
   ];
 
   return (
