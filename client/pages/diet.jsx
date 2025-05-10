@@ -149,8 +149,8 @@ const Diet = () => {
             <span className="ml-2">{profile.age || 'Not specified'}</span>
           </div>
           <div className="bg-gray-800 p-3 rounded-lg">
-            <span className="text-emerald-400">Gender:</span> 
-            <span className="ml-2 capitalize">{profile.gender || 'Not specified'}</span>
+            <span className="text-emerald-400">Sex:</span> 
+            <span className="ml-2 capitalize">{profile.sex || 'Not specified'}</span>
           </div>
           <div className="bg-gray-800 p-3 rounded-lg">
             <span className="text-emerald-400">Activity Level:</span> 
