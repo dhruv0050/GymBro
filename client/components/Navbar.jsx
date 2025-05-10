@@ -14,6 +14,7 @@ const Navbar = () => {
     { name: 'About You', href: '/about' },
     { name: 'Your Workouts', href: '/your-workouts' },
     { name: 'Macros', href: '/macros' },
+    { name: 'Diet', href: '/diet' },
   ];
 
   return (

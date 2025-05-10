@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Macros = require('../models/Macros');
-const Profile = require('../models/UserProfile'); // ⬅️ assuming this is where profile is stored
+const Profile = require('../models/UserProfile');
 const { calculateMacros } = require('../utils/macroCalculator');
 
 router.post('/calculate', async (req, res) => {
@@ -33,7 +33,7 @@ router.post('/calculate', async (req, res) => {
 
     res.status(200).json(updated);
   } catch (err) {
-    console.error('❌ Macro calculation error:', err);
+    console.error('Macro calculation error:', err);
     res.status(500).json({ message: 'Server error during macro calculation' });
   }
 });
