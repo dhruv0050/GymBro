@@ -205,23 +205,6 @@ const Macros = () => {
               ))}
             </div>
           </div>
-
-          {/* New section for Calculations & Reasoning */}
-          {extraInfo.length > 0 && (
-            <div className="bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg mt-8">
-              <h2 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-purple-500">
-                Calculations & Reasoning
-              </h2>
-              <div className="space-y-5">
-                {extraInfo.map((item, index) => (
-                  <div key={index} className="bg-gray-800 p-4 rounded-lg">
-                    <h3 className="font-semibold text-lg text-emerald-400 mb-2">{item.key}</h3>
-                    <p className="text-gray-300">{item.value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </>
