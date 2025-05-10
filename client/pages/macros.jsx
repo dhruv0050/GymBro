@@ -4,79 +4,32 @@ import { useUser } from "@clerk/clerk-react";
 import Navbar from "../components/Navbar";
 
 const Macros = () => {
-  const { user, isLoaded } = useUser(); // Ensure user data is loaded
+  const { user, isLoaded } = useUser();
   const userId = isLoaded ? user?.id : null;
 
-  const [profile, setProfile] = useState(null);
   const [macroData, setMacroData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch user profile
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchMacros = async () => {
       if (!userId) return;
-
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:5000/api/profile/${userId}`);
-        setProfile(res.data);
-        fetchMacrosForUser(res.data);
+        const res = await axios.post("http://localhost:5000/api/macros/calculate", {
+          userId
+        });
+        setMacroData(res.data);
+        setLoading(false);
       } catch (err) {
-        console.error("Error fetching user profile:", err);
-        setError("Failed to load your profile. Please try again later.");
+        setError("Failed to load your macros. Please try again later.");
         setLoading(false);
       }
     };
-
-    fetchProfile();
+    fetchMacros();
   }, [userId]);
 
-  const fetchMacrosForUser = async (profile) => {
-    try {
-      const response = await axios.post("http://localhost:5000/api/gemini/test-macros", {
-        userProfile: {
-          age: profile.age,
-          sex: profile.sex,
-          weight: profile.weight,
-          height: profile.height,
-          activityLevel: profile.activityLevel,
-          goal: profile.goal,
-          diet: profile.diet
-        }
-      });
-      setMacroData(response.data);
-      setLoading(false);
-    } catch (err) {
-      console.error("Error fetching macro data:", err);
-      setError("Failed to load your macros. Please try again later.");
-      setLoading(false);
-    }
-  };
-
-  const extractNumber = (str) => {
-    if (!str) return 0;
-    const match = str.match(/(\d+)/);
-    return match ? parseInt(match[0], 10) : 0;
-  };
-
-  const calculatePercentage = (current, target) => {
-    if (!current || !target) return 0;
-    return (current / target) * 100;
-  };
-
-  const MacroCircle = ({ title, value, target, color }) => {
-    const percentage = Math.min(calculatePercentage(value, target), 100);
-    const strokeDasharray = 283;
-    const strokeDashoffset = strokeDasharray - (strokeDasharray * percentage) / 100;
-
-    const colorMap = {
-      "text-emerald-400": "#34d399",
-      "text-purple-500": "#a855f7",
-      "text-amber-400": "#fbbf24",
-    };
-    const strokeColor = colorMap[color] || "#fff";
-
+  const MacroCircle = ({ title, value, color, unit }) => {
     return (
       <div className="flex flex-col items-center">
         <p className={`text-xl font-medium mb-2 ${color}`}>{title}</p>
@@ -95,17 +48,17 @@ const Macros = () => {
               cy="50"
               r="45"
               fill="none"
-              stroke={strokeColor}
+              stroke={color === "text-emerald-400" ? "#34d399" : color === "text-purple-500" ? "#a855f7" : color === "text-amber-400" ? "#fbbf24" : "#38bdf8"}
               strokeWidth="10"
               strokeLinecap="round"
-              strokeDasharray={strokeDasharray}
-              strokeDashoffset={strokeDashoffset}
+              strokeDasharray={283}
+              strokeDashoffset={0}
               transform="rotate(-90 50 50)"
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-3xl font-bold">{value}</span>
-            <span className="text-gray-400 text-sm">{target ? `/${target}g` : ''}</span>
+            <span className="text-gray-400 text-sm">{unit}</span>
           </div>
         </div>
       </div>
@@ -142,26 +95,12 @@ const Macros = () => {
     );
   }
 
-  const calories = macroData?.calories || "0 cal";
-  const carbs = extractNumber(macroData?.carbohydrates);
-  const protein = extractNumber(macroData?.protein);
-  const fats = extractNumber(macroData?.fats);
-
-  const considerations = [
-    { key: "Food Quality", value: macroData?.["*   **food quality"] || "" },
-    { key: "Hydration", value: macroData?.["*   **hydration"] || "" },
-    { key: "Sleep", value: macroData?.["*   **sleep"] || "" },
-    { key: "Progress Tracking", value: macroData?.["*   **progress tracking"] || "" },
-    { key: "Individual Variation", value: macroData?.["*   **individual variation"] || "" }
-  ].filter(item => item.value);
-
-  const macroKeys = ["calories", "carbohydrates", "protein", "fats"];
-  const extraInfo = Object.entries(macroData || {})
-    .filter(([key]) => !macroKeys.includes(key))
-    .map(([key, value]) => ({
-      key: key.replace(/\*|\_/g, '').replace(/\s+/g, ' ').trim(),
-      value: value.replace(/\*|\_/g, '').trim()
-    }));
+  // Macro values from backend
+  const calories = macroData?.total_calories || 0;
+  const carbs = macroData?.carbohydrates || 0;
+  const protein = macroData?.protein || 0;
+  const fats = macroData?.fats || 0;
+  const water = macroData?.water || 0;
 
   return (
     <>
@@ -178,7 +117,7 @@ const Macros = () => {
             <div className="flex items-center justify-center py-4">
               <div className="text-center">
                 <div className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-purple-500">
-                  {calories.split(' ')[0]}
+                  {calories}
                 </div>
                 <div className="text-gray-400 mt-2">calories per day</div>
               </div>
@@ -188,21 +127,10 @@ const Macros = () => {
           <div className="mb-8 bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg">
             <h2 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-purple-500">Macros</h2>
             <div className="flex flex-wrap justify-around gap-8">
-              <MacroCircle title="Net Carbs" value={carbs} target={carbs} color="text-emerald-400" />
-              <MacroCircle title="Fat" value={fats} target={fats} color="text-purple-500" />
-              <MacroCircle title="Protein" value={protein} target={protein} color="text-amber-400" />
-            </div>
-          </div>
-
-          <div className="bg-gray-900 p-6 rounded-xl border border-gray-800 shadow-lg">
-            <h2 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-purple-500">Important Considerations</h2>
-            <div className="space-y-5">
-              {considerations.map((item, index) => (
-                <div key={index} className="bg-gray-800 p-4 rounded-lg">
-                  <h3 className="font-semibold text-lg text-emerald-400 mb-2">{item.key}</h3>
-                  <p className="text-gray-300">{item.value.replace(/\*\*|\*/g, '').trim()}</p>
-                </div>
-              ))}
+              <MacroCircle title="Net Carbs" value={carbs} color="text-emerald-400" unit="g" />
+              <MacroCircle title="Fat" value={fats} color="text-purple-500" unit="g" />
+              <MacroCircle title="Protein" value={protein} color="text-amber-400" unit="g" />
+              <MacroCircle title="Water" value={water} color="text-cyan-400" unit="L" />
             </div>
           </div>
         </div>

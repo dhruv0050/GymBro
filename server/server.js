@@ -6,6 +6,7 @@ const cors = require('cors');
 const workoutRoutes = require('./routes/workouts');
 const profileRoutes = require('./routes/Profile');
 const geminiRoutes = require('./routes/Gemini');
+const macrosRoutes = require('./routes/macros');
 
 const app = express();
 const PORT = 5000;
@@ -23,5 +24,6 @@ app.use('/api/gemini', geminiRoutes);
   
 app.use('/api/workouts', workoutRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/macros', macrosRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

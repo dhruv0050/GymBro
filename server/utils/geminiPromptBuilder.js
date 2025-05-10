@@ -20,29 +20,6 @@ function buildGeminiPrompt(userProfile, workoutDetails) {
   Return only a single number — the **total** estimated calories burned for the entire workout session. With units, no explanation, no text, no formatting.
     `;
   }
-  
-function buildGeminiPromptforMacros(userProfile) {
-  return `
-You are a certified fitness trainer and nutrition expert. Based on the user's physical profile, estimate the **total daily calorie requirement** along with the required amounts of **carbohydrates, fats, and protein** to help the user reach their fitness goal.
-
-User Profile:
-- Age: ${userProfile.age}
-- Sex: ${userProfile.sex}
-- Weight: ${userProfile.weight} kg
-- Height: ${userProfile.height} cm
-- Activity Level: ${userProfile.activityLevel} (e.g., high, medium, low)
-- Fitness Goal: ${userProfile.goal} (e.g., gain muscle, gain weight, lose weight, maintain weight)
-- Diet: ${userProfile.diet} (e.g., vegetarian, non-vegetarian, vegan)
-
-Return your response in the following format:
-Calories: <number> cal  
-Carbohydrates: <number> g  
-Protein: <number> g  
-Fats: <number> g
-`;
-}
-
 module.exports = { 
-  buildGeminiPrompt,
-  buildGeminiPromptforMacros 
+  buildGeminiPrompt
 };
