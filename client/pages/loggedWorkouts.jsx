@@ -162,7 +162,7 @@ const LoggedWorkouts = () => {
                   <div>
                     <p className="text-lg font-semibold text-white mb-1 flex items-center gap-2">
                       {new Date(workout.date).toLocaleDateString("en-US", { weekday: "long" })}
-                      <span className="text-xs font-normal text-emerald-400 ml-2">Calories Burnt =  
+                      <span className="text-xs font-normal text-emerald-400 ml-2">Calories Burnt (in kcal) =  
                           {loadingCalories[workout._id] ? "Calculating..." : burntCalories[workout._id] ? `${burntCalories[workout._id]}` : ""}
                       </span>
                     </p>
