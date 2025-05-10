@@ -23,20 +23,29 @@ exports.createWorkout = async (req, res) => {
       weight: ex.repsAndWeights.map((rw) => rw.weight).join(", "),
       duration: ex.duration
     }));
+    
     // Build prompt and get calories
     let burntCalories = 0;
+    let prompt, geminiResult;
+    
     if (userProfile) {
-      const prompt = buildGeminiPrompt(userProfile, workoutDetails);
-      const geminiResult = await getCaloriesFromGemini(prompt);
-      burntCalories = extractCalories(geminiResult);
+      try {
+        prompt = buildGeminiPrompt(userProfile, workoutDetails);
+        geminiResult = await getCaloriesFromGemini(prompt);
+        burntCalories = extractCalories(geminiResult);
+      } catch (geminiError) {
+        console.error("Gemini API Error:", geminiError);
+        // Continue with workout creation even if Gemini fails
+        burntCalories = 0;
+      }
     }
+
     // Save workout with burntCalories
     const newWorkout = new Workout({ ...req.body, burntCalories });
     await newWorkout.save();
+    
+    // Send single response after all operations are complete
     res.status(201).json(newWorkout);
-    console.log("Prompt:", prompt);
-    console.log("Gemini result:", geminiResult);
-    console.log("Extracted calories:", burntCalories);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

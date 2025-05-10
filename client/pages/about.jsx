@@ -22,7 +22,7 @@ const About = () => {
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [statusMsg, setStatusMsg] = useState({ text: "", type: "" }); // For success/error messages
+  const [statusMsg, setStatusMsg] = useState({ text: "", type: "" });
 
   // Clear status message after 5 seconds
   useEffect(() => {

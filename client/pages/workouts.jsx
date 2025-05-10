@@ -16,7 +16,6 @@ const Workouts = () => {
 
   const {user} = useUser();
   const userId = user?.id; 
-  // const userId = localStorage.getItem("user"); // or get from Clerk/Auth context
 
   const handleExerciseChange = (index, field, value) => {
     const updated = [...exercises];
@@ -48,7 +47,6 @@ const Workouts = () => {
         weight: parseFloat(rw.weight)
       }))
     }));
-    // console.log("Logging workout data:", userId, selectedMuscles, filteredExercises);
 
     const workoutData = {
       userId,
@@ -57,9 +55,9 @@ const Workouts = () => {
       duration
     };
     
-
     try {
-      await axios.post("http://localhost:5000/api/workouts", workoutData);
+      const response = await axios.post("http://localhost:5000/api/workouts", workoutData);
+      console.log("✅ Workout Logged:", response.data);
       alert("Workout logged successfully!");
       navigate("/dashboard");
     } catch (err) {
@@ -119,7 +117,7 @@ const Workouts = () => {
   
         <button 
           onClick={addExercise} 
-          className="block mb-8 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg border border-gray-700 text-gray-300 hover:text-white font-medium transition-all duration-300 flex items-center w-full sm:w-auto justify-center"
+          className="mb-8 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg border border-gray-700 text-gray-300 hover:text-white font-medium transition-all duration-300 flex items-center w-full sm:w-auto justify-center"
         >
           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

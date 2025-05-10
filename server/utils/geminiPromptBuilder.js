@@ -20,7 +20,6 @@ function buildGeminiPrompt(userProfile, workoutDetails) {
   Return only a single number — the **total** estimated calories burned for the entire workout session. With units, no explanation, no text, no formatting.
     `;
   }
-module.exports = { buildGeminiPrompt };
   
 function buildGeminiPromptforMacros(userProfile) {
   return `
@@ -42,4 +41,8 @@ Protein: <number> g
 Fats: <number> g
 `;
 }
-module.exports = { buildGeminiPromptforMacros };
+
+module.exports = { 
+  buildGeminiPrompt,
+  buildGeminiPromptforMacros 
+};

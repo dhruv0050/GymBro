@@ -5,7 +5,7 @@ const workoutController = require('../controllers/workoutController');
 
 // Create
 router.post('/', workoutController.createWorkout);
-
+ 
 // Read
 router.get('/:userId', workoutController.getUserWorkouts);
 

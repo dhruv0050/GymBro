@@ -2,7 +2,7 @@ const UserProfile = require('../models/UserProfile');
 
 exports.saveProfile = async (req, res) => {
   try {
-    const { userId, age, weight, height, sex, activityLevel, goal } = req.body;
+    const { userId, age, weight, height, sex, activityLevel, goal, diet } = req.body;
 
     const existing = await UserProfile.findOne({ userId });
 
@@ -20,7 +20,7 @@ exports.saveProfile = async (req, res) => {
     }
 
     // Create new profile
-    const newProfile = new UserProfile({ userId, age, weight, height, sex });
+    const newProfile = new UserProfile({ userId, age, weight, height, sex, activityLevel, goal, diet });
     await newProfile.save();
     res.status(201).json(newProfile);
   } catch (err) {

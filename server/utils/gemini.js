@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-async function getCaloriesFromGemini(prompt) {
+const getCaloriesFromGemini = async (prompt) => {
   const apiKey = process.env.GEMINI_API_KEY;
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
@@ -18,9 +18,7 @@ async function getCaloriesFromGemini(prompt) {
   return response.data.candidates[0].content.parts[0].text.trim();
 }
 
-module.exports = { getCaloriesFromGemini };
-
-async function getMacrosFromGemini(prompt) {
+const getMacrosFromGemini = async (prompt) => {
   const apiKey = process.env.GEMINI_API_KEY;
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
@@ -38,4 +36,7 @@ async function getMacrosFromGemini(prompt) {
   return response.data.candidates[0].content.parts[0].text.trim();
 }
 
-module.exports = { getMacrosFromGemini };
+module.exports = {
+  getCaloriesFromGemini,
+  getMacrosFromGemini
+};
