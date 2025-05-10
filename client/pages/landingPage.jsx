@@ -42,23 +42,23 @@ const LandingPage = () => {
   const features = [
     {
       icon: <Dumbbell className="mb-4" />,
-      title: "Custom Workouts",
-      description: "Personalized training programs tailored to your specific fitness goals and experience level."
+      title: "Workouts Management",
+      description: "Easily log and manage your workouts with our intuitive interface for your progressive overloads."
     },
     {
       icon: <Activity className="mb-4" />,
-      title: "Performance Tracking",
-      description: "Track your progress with detailed analytics and visualize your improvements over time."
+      title: "Macros Tracking",
+      description: "Track your macros , calories and water intake with our smart nutrition planner to fuel your gains."
     },
     {
       icon: <Heart className="mb-4" />,
-      title: "Health Monitoring",
-      description: "Monitor your vital metrics and recovery to optimize your training and prevent injuries."
+      title: "Burnt Calories",
+      description: "Monitor your calories burnt during your particular workout session to achieve your dream physique."
     },
     {
       icon: <Calendar className="mb-4" />,
-      title: "Smart Scheduling",
-      description: "AI-powered scheduling to balance your workout routine for maximum gains and recovery."
+      title: "Diet Planning",
+      description: "Get personalized diet plans based on your goals and preferences to optimize your nutrition."
     }
   ];
 
