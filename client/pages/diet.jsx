@@ -19,7 +19,7 @@ const Diet = () => {
 
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:5000/api/profile/${userId}`);
+        const res = await axios.get(`https://gym-bro-backend.vercel.app/api/profile/${userId}`);
         setProfile(res.data);
         setProfileLoaded(true);
       } catch (err) {
@@ -39,7 +39,7 @@ const Diet = () => {
       
       try {
         // First try to get existing diet plans
-        const existingPlans = await axios.get(`http://localhost:5000/api/diets/diet/${userId}`);
+        const existingPlans = await axios.get(`https://gym-bro-backend.vercel.app/api/diets/diet/${userId}`);
         if (existingPlans.data.dietPlans) {
           setDietPlans(existingPlans.data.dietPlans.mealPlans);
           setLoading(false);
@@ -49,7 +49,7 @@ const Diet = () => {
         // If no existing plans, generate new ones
         try {
           // Fetch macros from backend
-          const macrosRes = await axios.get(`http://localhost:5000/api/macros/${userId}`);
+          const macrosRes = await axios.get(`https://gym-bro-backend.vercel.app/api/macros/${userId}`);
           const macros = macrosRes.data;
 
           // Prepare user profile in the format expected by the backend
@@ -65,7 +65,7 @@ const Diet = () => {
           };
 
           // Generate new diet plans
-          const response = await axios.post("http://localhost:5000/api/diets/diet", {
+          const response = await axios.post("https://gym-bro-backend.vercel.app/api/diets/diet", {
             userProfile,
             macros
           });

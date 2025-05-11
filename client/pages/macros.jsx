@@ -16,7 +16,7 @@ const Macros = () => {
       if (!userId) return;
       try {
         setLoading(true);
-        const res = await axios.post("http://localhost:5000/api/macros/calculate", {
+        const res = await axios.post("https://gym-bro-backend.vercel.app/api/macros/calculate", {
           userId
         });
         setMacroData(res.data);

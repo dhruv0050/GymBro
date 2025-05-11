@@ -56,8 +56,8 @@ const Workouts = () => {
     };
     
     try {
-      const response = await axios.post("http://localhost:5000/api/workouts", workoutData);
-      console.log("✅ Workout Logged:", response.data);
+      const response = await axios.post("https://gym-bro-backend.vercel.app/api/workouts", workoutData);
+      console.log("Workout Logged:", response.data);
       alert("Workout logged successfully!");
       navigate("/dashboard");
     } catch (err) {

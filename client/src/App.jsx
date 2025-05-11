@@ -6,7 +6,7 @@ import SignUpPage from '../components/SignUp';
 import Dashboard from '../pages/dashboard';
 import Workouts from '../pages/workouts';
 import LoggedWorkouts from '../pages/loggedWorkouts';
-import About from '../pages/About';
+import About from '../pages/about';
 import Macros from '../pages/macros';
 import Diet from '../pages/diet';
 

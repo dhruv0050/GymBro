@@ -17,7 +17,7 @@ const LoggedWorkouts = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/profile/${userId}`);
+        const res = await axios.get(`https://gym-bro-backend.vercel.app/api/profile/${userId}`);
         setProfile(res.data);
       } catch (err) {
         setProfile(null);
@@ -30,7 +30,7 @@ const LoggedWorkouts = () => {
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/workouts/user/${userId}`);
+        const res = await axios.get(`https://gym-bro-backend.vercel.app/api/workouts/user/${userId}`);
         setWorkouts(res.data);
       } catch (err) {
         console.error(err);
@@ -55,7 +55,7 @@ const LoggedWorkouts = () => {
             reps: ex.repsAndWeights.map((rw) => rw.reps).join(", "),
             weight: ex.repsAndWeights.map((rw) => rw.weight).join(", "),
           }));
-          const res = await axios.post("http://localhost:5000/api/gemini/estimate", {
+          const res = await axios.post("https://gym-bro-backend.vercel.app/api/gemini/estimate", {
             userProfile: profile,
             workoutDetails,
           });
@@ -73,7 +73,7 @@ const LoggedWorkouts = () => {
 
   const deleteWorkout = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/workouts/${id}`);
+      await axios.delete(`https://gym-bro-backend.vercel.app/api/workouts/${id}`);
       setWorkouts(workouts.filter(w => w._id !== id));
     } catch (err) {
       console.error(err);
@@ -100,7 +100,7 @@ const LoggedWorkouts = () => {
 
   const saveEdit = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/workouts/${editingWorkout._id}`, editingWorkout);
+      await axios.put(`https://gym-bro-backend.vercel.app/api/workouts/${editingWorkout._id}`, editingWorkout);
       setWorkouts(workouts.map(w => w._id === editingWorkout._id ? editingWorkout : w));
       setEditingWorkout(null);
     } catch (err) {
