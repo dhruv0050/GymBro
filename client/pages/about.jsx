@@ -38,7 +38,7 @@ const About = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/profile/${userId}`);
+        const res = await axios.get(`https://gym-bro-backend.vercel.app/api/profile/${userId}`);
         setFormData(res.data);
       } catch (err) {
         console.log("No profile yet or error occurred.");
@@ -55,7 +55,7 @@ const About = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/profile", {
+      await axios.post("https://gym-bro-backend.vercel.app/api/profile", {
         userId,
         ...formData,
       });
