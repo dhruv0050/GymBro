@@ -129,7 +129,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Dhruv - [@dhruv0050](https://github.com/dhruv0050)
 
-Project Link: [https://github.com/dhruv0050/gymbro](https://github.com/dhruv0050/gymbro)
+Project Link: [https://gym-bro-nine.vercel.app/](https://gym-bro-nine.vercel.app/)
 
 ---
 
