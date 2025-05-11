@@ -127,7 +127,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📧 Contact
 
-Dhruv - [@yourgithub](https://github.com/dhruv0050)
+Dhruv - [@dhruv0050](https://github.com/dhruv0050)
 
 Project Link: [https://github.com/dhruv0050/gymbro](https://github.com/dhruv0050/gymbro)
 
