@@ -2,8 +2,7 @@
 
 ## Your AI-Powered Fitness Companion
 
-GymBro is an innovative fitness application that leverages AI to provide personalized workout plans, diet recommendations, and macro tracking. Whether you're a beginner or a seasoned fitness enthusiast, GymBro is designed to be your ultimate fitness companion.
-
+GymBro is an innovative fitness application that leverages AI to provide diet recommendations, calories burnt during workout, and macro and workouts tracking. Whether you're a beginner or a seasoned fitness enthusiast, GymBro is designed to be your ultimate fitness companion.
 
 ## 🚀 Features
 
