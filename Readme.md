@@ -6,7 +6,6 @@ GymBro is an innovative fitness application that leverages AI to provide diet re
 
 ## 🚀 Features
 
-- **Personalized Workout Plans**: Access customized workout routines tailored to your fitness goals and experience level
 - **Diet Recommendations**: Get AI-generated meal plans to complement your fitness journey
 - **Macro Tracking**: Monitor your macro intake with our intuitive tracking system
 - **Progress Logging**: Keep track of your workouts and measure your progress over time
