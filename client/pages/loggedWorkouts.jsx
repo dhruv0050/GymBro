@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useUser } from "@clerk/clerk-react";
 import Navbar from "../components/Navbar";
+import API_BASE_URL from "../utils/api";
 
 const LoggedWorkouts = () => {
   const { user } = useUser();
@@ -17,7 +18,7 @@ const LoggedWorkouts = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`https://gym-bro-backend.vercel.app/api/profile/${userId}`);
+        const res = await axios.get(`${API_BASE_URL}/api/profile/${userId}`);
         setProfile(res.data);
       } catch (err) {
         setProfile(null);
@@ -30,7 +31,7 @@ const LoggedWorkouts = () => {
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {
-        const res = await axios.get(`https://gym-bro-backend.vercel.app/api/workouts/user/${userId}`);
+        const res = await axios.get(`${API_BASE_URL}/api/workouts/user/${userId}`);
         setWorkouts(res.data);
       } catch (err) {
         console.error(err);
@@ -55,7 +56,7 @@ const LoggedWorkouts = () => {
             reps: ex.repsAndWeights.map((rw) => rw.reps).join(", "),
             weight: ex.repsAndWeights.map((rw) => rw.weight).join(", "),
           }));
-          const res = await axios.post("https://gym-bro-backend.vercel.app/api/gemini/estimate", {
+          const res = await axios.post(`${API_BASE_URL}/api/gemini/estimate`, {
             userProfile: profile,
             workoutDetails,
           });
@@ -73,7 +74,7 @@ const LoggedWorkouts = () => {
 
   const deleteWorkout = async (id) => {
     try {
-      await axios.delete(`https://gym-bro-backend.vercel.app/api/workouts/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/workouts/${id}`);
       setWorkouts(workouts.filter(w => w._id !== id));
     } catch (err) {
       console.error(err);
@@ -100,7 +101,7 @@ const LoggedWorkouts = () => {
 
   const saveEdit = async () => {
     try {
-      await axios.put(`https://gym-bro-backend.vercel.app/api/workouts/${editingWorkout._id}`, editingWorkout);
+      await axios.put(`${API_BASE_URL}/api/workouts/${editingWorkout._id}`, editingWorkout);
       setWorkouts(workouts.map(w => w._id === editingWorkout._id ? editingWorkout : w));
       setEditingWorkout(null);
     } catch (err) {

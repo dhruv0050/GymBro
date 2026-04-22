@@ -1,43 +1,169 @@
 function geminiPromptforDiet(userProfile, macros) {
-  return `You are a highly experienced and certified fitness trainer and nutrition specialist, renowned for crafting effective and personalized diet plans. Based on the following detailed user profile and their specific daily macronutrient targets, generate two distinct and comprehensive daily meal plans.
+  return `You are a highly experienced fitness nutritionist. Create 2 practical full-day meal plans.
 
-Return ONLY a valid JSON array (no explanation, no markdown, no extra text), where each plan is an object with the following keys: planNumber, breakfast, snack1, lunch, snack2, dinner. Each meal should be a string listing specific food items and approximate quantities. Do not omit any meal or leave any field empty.
-
-Example:
+Return ONLY valid JSON (no markdown, no explanation, no extra text) using exactly this schema. Do not return meal strings; every meal must be an object with foods and macros:
 [
   {
     "planNumber": 1,
-    "breakfast": "2 eggs, 1 cup oatmeal, 1 banana",
-    "snack1": "Greek yogurt, 10 almonds",
-    "lunch": "Grilled chicken breast, 1 cup brown rice, mixed vegetables",
-    "snack2": "Protein shake",
-    "dinner": "Salmon, sweet potato, broccoli"
+    "breakfast": {
+      "foods": [
+        { "name": "string", "quantity": "string" }
+      ],
+      "macros": {
+        "calories": 0,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fats": 0
+      }
+    },
+    "snack1": {
+      "foods": [
+        { "name": "string", "quantity": "string" }
+      ],
+      "macros": {
+        "calories": 0,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fats": 0
+      }
+    },
+    "lunch": {
+      "foods": [
+        { "name": "string", "quantity": "string" }
+      ],
+      "macros": {
+        "calories": 0,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fats": 0
+      }
+    },
+    "snack2": {
+      "foods": [
+        { "name": "string", "quantity": "string" }
+      ],
+      "macros": {
+        "calories": 0,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fats": 0
+      }
+    },
+    "dinner": {
+      "foods": [
+        { "name": "string", "quantity": "string" }
+      ],
+      "macros": {
+        "calories": 0,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fats": 0
+      }
+    },
+    "dailyTotals": {
+      "calories": 0,
+      "protein": 0,
+      "carbohydrates": 0,
+      "fats": 0
+    }
   },
-  ...
+  {
+    "planNumber": 2,
+    "breakfast": {
+      "foods": [
+        { "name": "string", "quantity": "string" }
+      ],
+      "macros": {
+        "calories": 0,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fats": 0
+      }
+    },
+    "snack1": {
+      "foods": [
+        { "name": "string", "quantity": "string" }
+      ],
+      "macros": {
+        "calories": 0,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fats": 0
+      }
+    },
+    "lunch": {
+      "foods": [
+        { "name": "string", "quantity": "string" }
+      ],
+      "macros": {
+        "calories": 0,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fats": 0
+      }
+    },
+    "snack2": {
+      "foods": [
+        { "name": "string", "quantity": "string" }
+      ],
+      "macros": {
+        "calories": 0,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fats": 0
+      }
+    },
+    "dinner": {
+      "foods": [
+        { "name": "string", "quantity": "string" }
+      ],
+      "macros": {
+        "calories": 0,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fats": 0
+      }
+    },
+    "dailyTotals": {
+      "calories": 0,
+      "protein": 0,
+      "carbohydrates": 0,
+      "fats": 0
+    }
+  }
 ]
 
 User Profile:
-- Age: ${userProfile.age} years old
+- Age: ${userProfile.age} years
 - Sex: ${userProfile.sex}
-- Weight: ${userProfile.weight} kilograms
-- Height: ${userProfile.height} centimeters
+- Weight: ${userProfile.weight} kg
+- Height: ${userProfile.height} cm
 - Activity Level: ${userProfile.activityLevel}
-- Fitness Goal: ${userProfile.goal}
-- Dietary Preferences: ${userProfile.diet}
+- Goal: ${userProfile.goal}
+- Diet Preference: ${userProfile.diet}
 
-Daily Nutritional Targets:
-- Total Calories: ${macros.total_calories} calories
-- Carbohydrates: ${macros.carbohydrates} grams
-- Fats: ${macros.fats} grams
-- Protein: ${macros.protein} grams
-- Daily Water Intake Goal: ${macros.water} liters
+Daily Targets:
+- Calories: ${macros.total_calories}
+- Protein (g): ${macros.protein}
+- Carbohydrates (g): ${macros.carbohydrates}
+- Fats (g): ${macros.fats}
+- Water (L): ${macros.water}
 
-Requirements:
-- Generate 2 full-day meal plans.
-- Each plan must include: breakfast, snack1, lunch, snack2, dinner.
-- Each meal should list specific food items and approximate quantities.
-- Ensure variety and practicality.
-- DO NOT include any explanation, markdown, or text outside the JSON array.
+Rules:
+- Include exactly 5 meals: breakfast, snack1, lunch, snack2, dinner.
+- Every meal must include foods array with clear food names and quantities.
+- Every meal must include macros with numeric values only.
+- Never output breakfast/snack/lunch/dinner as plain text strings.
+- Never omit macros for any meal.
+- Never repeat the same foods in both plans unless required by the target macros.
+- Distribute macros so the sum of the 5 meal macros equals dailyTotals.
+- Make dailyTotals match the daily targets as closely as possible.
+- Keep each meal within a realistic share of the daily target:
+  breakfast 20-25%, snack1 8-12%, lunch 28-32%, snack2 8-12%, dinner 25-30%.
+- Do not create a meal whose calories alone exceed 40% of the day's calories.
+- Foods must be realistic, practical, and align with Diet Preference.
+- Keep plans varied from each other.
+- Return JSON only.
 `;
 }
 

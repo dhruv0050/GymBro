@@ -71,7 +71,7 @@ const LandingPage = () => {
         
         <div className="z-10 text-center px-6 max-w-4xl">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-purple-500">
-            Welcome to Gym Bro
+            Welcome to GymBro
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-300">
             Your personal AI fitness companion to maximize your gains and transform your physique

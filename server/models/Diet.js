@@ -3,16 +3,24 @@ const mongoose = require('mongoose');
 const dietPlanSchema = new mongoose.Schema({
     userId: { type: String, required: true, unique: true },
     dietType: { type: String, required: true },
-    mealPlans: [
-        {
-            planNumber: { type: Number, required: true },
-            breakfast: { type: String },
-            snack1: { type: String },
-            lunch: { type: String },
-            snack2: { type: String },
-            dinner: { type: String },
-        },
-    ],
-});
+    mealPlans: [{ type: mongoose.Schema.Types.Mixed }],
+    profileSnapshot: {
+        age: Number,
+        sex: String,
+        weight: Number,
+        height: Number,
+        activityLevel: String,
+        goal: String,
+        diet: String,
+    },
+    macroTargets: {
+        total_calories: Number,
+        carbohydrates: Number,
+        fats: Number,
+        protein: Number,
+        water: Number,
+    },
+    generatedAt: { type: Date, default: Date.now },
+}, { timestamps: true });
 
 module.exports = mongoose.model('DietPlan', dietPlanSchema);

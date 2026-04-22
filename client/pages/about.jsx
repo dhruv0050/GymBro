@@ -1,8 +1,9 @@
 import { useUser } from "@clerk/clerk-react";
-import { act, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar"; // Import Navbar component
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../utils/api";
 
 const About = () => {
   const { user } = useUser();
@@ -10,13 +11,13 @@ const About = () => {
   const firstName = user?.firstName || "there";
 
   const [formData, setFormData] = useState({
-    age: "",
-    weight: "",
-    height: "",
-    sex: "",
-    activityLevel: "",
-    goal: "",
-    diet: "",
+    age: 20,
+    weight: 70,
+    height: 170,
+    sex: "male",
+    activityLevel: "Highly Active",
+    goal: "Gain Muscle",
+    diet: "Vegetarian",
   });
 
   const navigate = useNavigate();
@@ -38,9 +39,9 @@ const About = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`https://gym-bro-backend.vercel.app/api/profile/${userId}`);
+        const res = await axios.get(`${API_BASE_URL}/api/profile/${userId}`);
         setFormData(res.data);
-      } catch (err) {
+      } catch {
         console.log("No profile yet or error occurred.");
       }
     };
@@ -55,11 +56,11 @@ const About = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://gym-bro-backend.vercel.app/api/profile", {
+      await axios.post(`${API_BASE_URL}/api/profile`, {
         userId,
         ...formData,
       });
-      setStatusMsg({ text: "Profile saved successfully!", type: "success" });
+      setStatusMsg({ text: "Profile saved. Your diet recommendations will auto-refresh based on this update.", type: "success" });
       setIsEditing(false);
   
       setTimeout(() => {
@@ -181,13 +182,13 @@ const About = () => {
                 >
                   <option value="Gain Muscle">Gain Muscle</option>
                   <option value="Gain Weight">Gain Weight</option>
-                  <option value="Loose Weight">Loose Weight</option>
+                  <option value="Lose Weight">Lose Weight</option>
                   <option value="Maintain Weight">Maintain Weight</option>
                 </select>
               </div>
 
               <div className="bg-gray-900 p-5 rounded-xl border border-gray-800 shadow-lg">
-                <label className="block text-sm font-medium text-gray-400 mb-2">Your Fitness Goal</label>
+                <label className="block text-sm font-medium text-gray-400 mb-2">Diet Preference</label>
                 <select
                   name="diet"
                   value={formData.diet}

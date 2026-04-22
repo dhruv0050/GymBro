@@ -1,4 +1,13 @@
 const UserProfile = require('../models/UserProfile');
+const DietPlan = require('../models/Diet');
+const Macros = require('../models/Macros');
+
+async function invalidateComputedPlans(userId) {
+  await Promise.allSettled([
+    DietPlan.deleteOne({ userId }),
+    Macros.deleteOne({ userId }),
+  ]);
+}
 
 exports.saveProfile = async (req, res) => {
   try {
@@ -16,12 +25,14 @@ exports.saveProfile = async (req, res) => {
       existing.goal = goal;
       existing.diet = diet;
       await existing.save();
+      await invalidateComputedPlans(userId);
       return res.status(200).json(existing);
     }
 
     // Create new profile
     const newProfile = new UserProfile({ userId, age, weight, height, sex, activityLevel, goal, diet });
     await newProfile.save();
+    await invalidateComputedPlans(userId);
     res.status(201).json(newProfile);
   } catch (err) {
     res.status(400).json({ error: err.message });

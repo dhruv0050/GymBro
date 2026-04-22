@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useUser } from "@clerk/clerk-react";
 import Navbar from "../components/Navbar";
+import API_BASE_URL from "../utils/api";
 
 const Macros = () => {
   const { user, isLoaded } = useUser();
@@ -16,7 +17,7 @@ const Macros = () => {
       if (!userId) return;
       try {
         setLoading(true);
-        const res = await axios.post("https://gym-bro-backend.vercel.app/api/macros/calculate", {
+        const res = await axios.post(`${API_BASE_URL}/api/macros/calculate`, {
           userId
         });
         setMacroData(res.data);

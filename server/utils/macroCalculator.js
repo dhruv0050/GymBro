@@ -30,6 +30,7 @@ function calculateMacros(userProfile) {
       calories += 300;
       break;
     case 'lose weight':
+    case 'loose weight':
       calories -= 500;
       break;
     case 'maintain weight':

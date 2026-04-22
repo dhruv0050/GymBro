@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useUser } from "@clerk/clerk-react";
 import Navbar from "../components/Navbar";
+import API_BASE_URL from "../utils/api";
 
 const Workouts = () => {
   const location = useLocation();
@@ -56,7 +57,7 @@ const Workouts = () => {
     };
     
     try {
-      const response = await axios.post("https://gym-bro-backend.vercel.app/api/workouts", workoutData);
+      const response = await axios.post(`${API_BASE_URL}/api/workouts`, workoutData);
       console.log("Workout Logged:", response.data);
       alert("Workout logged successfully!");
       navigate("/dashboard");
